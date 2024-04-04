@@ -8,7 +8,7 @@ file_path = [file for file in fileList if re.search(pattern, file)][0]
 print("find markdown file: ", file_path)
 
 html_path = "output.html"
-# html_path = "index.html"
+html_path = "index.html"
 print("target html: ", html_path)
 
 template = """
