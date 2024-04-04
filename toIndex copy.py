@@ -86,13 +86,14 @@ sourceSoup = BeautifulSoup(html, 'html.parser')
 targetSoup = BeautifulSoup(template, 'html.parser')
 
 
-# h2决定了有几个项目，一个项目创建一个 section
+# 决定了有几个项目，一个项目创建一个 section
 sourceH2NodeList = sourceSoup.find_all('h2')
 containerNode = targetSoup.find(class_="container") # 找到容器
 
+# sourceH3NodeList = sourceSoup.find_all('h3')
+# sourceTaskNodeList = sourceSoup.find_all('ul')
 
 # 从 h2标签开始遍历 到下一个 h2 标签结束，将其中所有的h3和ul分别存储，之后添加到目标位置
-# -------------------------------------------------------------------------------
 currentH2Node = sourceH2NodeList[0]
 currentH3NodeList = [] # 存储 h3
 currentTaskNodeList = [] # 存储 ul
@@ -114,9 +115,7 @@ for index, value in enumerate(currentH3NodeList):
     sectionNode.append(value)
     sectionNode.append(currentTaskNodeList[index])
 containerNode.append(sectionNode)
-# -------------------------------------------------------------------------------
-
-
+    
 html = targetSoup.prettify()
 print(html)
 
