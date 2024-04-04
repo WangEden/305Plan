@@ -55,14 +55,6 @@ template = """
 </head>
 <body>
     <div class="container">
-        <div class="section">
-        </div>
-        <div class="section">
-        </div>
-        <div class="section">
-        </div>
-        <div class="section">
-        </div>
     </div>
 </body>
 </html>
@@ -81,45 +73,52 @@ with open(file_path, 'r', encoding="utf-8") as file:
 html = markdown.markdown(md_text)
 # print(html)
 
+
 # 利用 BeautifulSoup 修改
 sourceSoup = BeautifulSoup(html, 'html.parser')
 targetSoup = BeautifulSoup(template, 'html.parser')
 
-
 # h2决定了有几个项目，一个项目创建一个 section
-sourceH2NodeList = sourceSoup.find_all('h2')
+# sourceH2NodeList = sourceSoup.find_all('h2')
 containerNode = targetSoup.find(class_="container") # 找到容器
 
-
-# 从 h2标签开始遍历 到下一个 h2 标签结束，将其中所有的h3和ul分别存储，之后添加到目标位置
-# -------------------------------------------------------------------------------
-currentH2Node = sourceH2NodeList[0]
-currentH3NodeList = [] # 存储 h3
-currentTaskNodeList = [] # 存储 ul
-next_tag = currentH2Node.find_next_sibling()
-while next_tag and next_tag.name != "h2":
-    if next_tag.name == "h3":
-        currentH3NodeList.append(next_tag)
-    if next_tag.name == "ul":
-        currentTaskNodeList.append(next_tag)
-    next_tag = next_tag.find_next_sibling()
-
-if len(currentH3NodeList) != len(currentTaskNodeList):
-    print("Error: h3 and ul not match")
-    exit(1)
-
-sectionNode = targetSoup.new_tag("div", attrs={'class': 'section'})
-sectionNode.append(currentH2Node)
-for index, value in enumerate(currentH3NodeList):
-    sectionNode.append(value)
-    sectionNode.append(currentTaskNodeList[index])
-containerNode.append(sectionNode)
-# -------------------------------------------------------------------------------
-
-
+# --------------------------------------- test
+containerNode.append(sourceSoup)
 html = targetSoup.prettify()
-print(html)
-
 with open(html_path, 'w', encoding='utf-8') as file:
     file.write(html)
     print("ok")
+# ---------------------------------------
+
+# 从 h2标签开始遍历 到下一个 h2 标签结束，将其中所有的h3和ul分别存储，之后添加到目标位置
+# -------------------------------------------------------------------------------
+# currentH2Node = sourceH2NodeList[0]
+# currentH3NodeList = [] # 存储 h3
+# currentTaskNodeList = [] # 存储 ul
+# next_tag = currentH2Node.find_next_sibling()
+# while next_tag and next_tag.name != "h2":
+#     if next_tag.name == "h3":
+#         currentH3NodeList.append(next_tag)
+#     if next_tag.name == "ul":
+#         currentTaskNodeList.append(next_tag)
+#     next_tag = next_tag.find_next_sibling()
+
+# if len(currentH3NodeList) != len(currentTaskNodeList):
+#     print("Error: h3 and ul not match")
+#     exit(1)
+
+# sectionNode = targetSoup.new_tag("div", attrs={'class': 'section'})
+# sectionNode.append(currentH2Node)
+# for index, value in enumerate(currentH3NodeList):
+#     sectionNode.append(value)
+#     sectionNode.append(currentTaskNodeList[index])
+# containerNode.append(sectionNode)
+# -------------------------------------------------------------------------------
+
+
+# html = targetSoup.prettify()
+# print(html)
+
+# with open(html_path, 'w', encoding='utf-8') as file:
+#     file.write(html)
+#     print("ok")
