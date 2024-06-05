@@ -51,11 +51,20 @@ template = """
     <link rel="apple-touch-startup-image" href="/img/pwa/splash-640x1136.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/>
     <link rel="apple-touch-startup-image" href="/img/pwa/splash-1136x640.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/>
     <title>305任务清单</title>
-    <link rel="stylesheet" href="./style/style.css">
+    <link rel="stylesheet" href="./style/style.css" id="myStyle" >
 </head>
 <body>
     <div class="container">
     </div>
+    <script>
+        window.onload = function() {
+            var t = new Date().getHours();
+            if (t >= 19 || t <= 6){
+                var obj = document.getElementById("myStyle");
+                obj.setAttribute("href", "./style/style-dark.css");
+            }
+        }
+    </script>
 </body>
 </html>
 """

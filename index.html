@@ -39,7 +39,7 @@
    <title>
     305任务清单
    </title>
-   <link href="./style/style.css" rel="stylesheet"/>
+   <link href="./style/style.css" id="myStyle" rel="stylesheet"/>
   </meta>
  </head>
  <body>
@@ -57,5 +57,14 @@
     道路识别赛项
    </h2>
   </div>
+  <script>
+   window.onload = function() {
+            var t = new Date().getHours();
+            if (t >= 19 || t <= 6){
+                var obj = document.getElementById("myStyle");
+                obj.setAttribute("href", "./style/style-dark.css");
+            }
+        }
+  </script>
  </body>
 </html>
